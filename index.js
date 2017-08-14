@@ -16,3 +16,30 @@ const monologueLines = [
   'No.',
   'I am the one who knocks!'
 ];
+
+function reduce(collection, callback, initialValue) {
+  let result = initialValue;
+ 
+  collection.forEach((product, index) => {
+    result = callback(result, product, index, collection);
+  });
+ 
+  return result;
+}
+
+function batteryCounter(totalAmount, batteries) {
+  return totalAmount + batteries;
+}
+
+function wordCountMapper(hash, phrase) {
+  let sentenceLength = phrase.split(" ").length
+  if (!(hash.hasOwnProperty(sentenceLength)) ){
+    hash[sentenceLength] = 0
+  }
+  hash[sentenceLength] += 1
+  return hash
+  
+}
+
+let totalBatteries = reduce(batteryBatches, batteryCounter, 0)
+let wordCountMap = reduce(monologueLines, wordCountMapper, {})
